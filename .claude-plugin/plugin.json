@@ -1,0 +1,9 @@
+{
+  "name": "fractalflow-plan-builder",
+  "version": "1.0.0",
+  "description": "Build FractalFlow .ffplan schedules from a project description, contract, SOW or spreadsheet, ready to open in the FractalFlow app.",
+  "author": { "name": "Rizkin Labs" },
+  "homepage": "https://fractalflow.rizkinlabs.com",
+  "license": "MIT",
+  "keywords": ["fractalflow", "project-management", "scheduling", "gantt", "critical-path"]
+}
