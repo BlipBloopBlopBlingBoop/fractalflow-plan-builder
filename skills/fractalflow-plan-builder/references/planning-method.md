@@ -70,7 +70,7 @@ For each task ask two questions: what must be true before this can start, and wh
 
 - A lag is a wait hidden inside a link. Prefer a task: "Concrete cures (7 calendar days)" can be seen, owned and questioned. A small lag between tasks that run in step is acceptable; say why in the notes.
 - A lead (negative lag) says "start before the predecessor finishes" without saying when it is safe to. Split the predecessor at the real hand-off point, or use start-to-start with a positive lag.
-- The tool refuses a lag next to a calendar-day task. Put the extra wait in its own task.
+- Never put a lag next to a calendar-day task. Put the extra wait in its own task.
 
 ## 6. Estimate durations
 
@@ -108,7 +108,7 @@ Give every wait an owner: the party you are waiting on. Record where the number 
 - Add public holidays and shutdowns as `holidays`. A plan that runs for months without them is optimistic by days.
 - Seasonal limits (weather, term dates, freezes) are either holidays, if nobody works, or a start-no-earlier-than date on the affected task, with a note.
 
-The tool models whole working days of eight hours and one calendar for the whole plan. Other working hours and task calendars can be set in FractalFlow once the plan is open.
+Plans you write use whole working days of eight hours and one calendar for the whole plan. Other working hours and task calendars can be set in FractalFlow once the plan is open.
 
 ## 9. Deadlines and constraints
 
@@ -131,7 +131,7 @@ Rules:
 - Hard constraints (`MSO`, `MFO`, `SNLT`, `FNLT`) hide problems: they hold a date in place while the logic behind it breaks. More than a few is a warning sign.
 - Never constrain the finish milestone to make the plan end on the hoped-for date. Put a deadline on it and look at the margin.
 
-**When the whole plan serves a fixed date** (an event, an opening, an outage window): end the preparation on a readiness milestone, such as "Ready for the conference", and give it a deadline the day before. If the plan continues past the date, add the event itself as a task pinned with `MSO` and say in its notes why the date is fixed. `check` then shows, under LEADING IN, the chain of work into the fixed date and the float each step has, and `--finish-by` gives the latest safe start.
+**When the whole plan serves a fixed date** (an event, an opening, an outage window): end the preparation on a readiness milestone, such as "Ready for the conference", and give it a deadline the day before. If the plan continues past the date, add the event itself as a task pinned with `MSO` and say in its notes why the date is fixed. Then work out the chain of work into the fixed date, the float each step has, and the latest safe start.
 
 ## 10. Margin
 
@@ -148,7 +148,7 @@ Where several chains meet at one task, the chance that at least one arrives late
 
 - One answerable owner per task. A team name is fine when the team is the unit that commits.
 - For a wait, the owner is whoever you are waiting on.
-- Look at what each owner carries at once. The tool notes anyone with three or more overlapping tasks. For a crew that may be normal; for one person it is a plan that will not hold.
+- Look at what each owner carries at once. Watch for anyone with three or more overlapping tasks. For a crew that may be normal; for one person it is a plan that will not hold.
 - The fix for overload is to move work, add people, or accept a later date. FractalFlow can level resources once the plan is open, which may need a paid plan in the app.
 
 ## 12. Risks, assumptions, decisions
@@ -167,7 +167,7 @@ Link each entry to the tasks it touches, and give a risk its likely delay in `im
 
 ## 13. Read the result
 
-After `check`:
+After working out the dates:
 
 - **The driving path** is the chain that sets the finish date. Read it aloud. Does it make sense that this, of all things, decides the date? If not, a link is wrong or missing.
 - **Float** is how far a task can slip before the finish moves. Zero float means critical. A few days of float means nearly critical, and nearly critical paths become critical the moment something slips.
@@ -193,7 +193,7 @@ How to do it:
 
 - Only changes on the driving path move the finish. BIGGEST LEVERS shows how many days each step on it is worth.
 - After each change, check again. Shorten one chain and another usually becomes the driving one.
-- Try a change with `--what-if` before editing the spec.
+- Try a change in your date table before changing the plan.
 - Tell the person what each option gains, what it costs and what risk it adds. The choice is theirs.
 - Never get there by cutting estimates without a reason for the work to go faster.
 
@@ -201,9 +201,9 @@ How to do it:
 
 Once work starts, the plan is kept true by recording facts.
 
-- Set `statusDate`: the day the facts were gathered.
-- **Finished:** `percent` 100 with `actualStart` and `actualFinish`.
-- **Under way:** `actualStart` and `remaining`, the working days still needed as of the status date. The tool sets the task's length to the time already spent plus what is left, so its finish, and everything after it, sits where it really is. This is better than a percent: percent says how much is done, and only the days remaining say when it will end.
+- Set the status date: the day the facts were gathered.
+- **Finished:** 100 percent with the real start and finish.
+- **Under way:** the real start and the working days still needed as of the status date. The task's length becomes the time already spent plus what is left (`file-format.md` shows how), so its finish, and everything after it, sits where it really is. This is better than a percent: percent says how much is done, and only the days remaining say when it will end.
 - **Not started, and should have been:** it cannot stay scheduled in the past. Find out when it can start, and why it has not.
 - Work done out of order is a sign that a link was a preference, not a need. Decide which and fix the link.
 

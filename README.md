@@ -10,7 +10,7 @@ Describe a project, or attach a contract, a statement of work, a spreadsheet or 
 - **Checks the plan** before you see it: missing links, loops, tasks nothing depends on, missed deadlines, negative float, hidden waits, long or unowned tasks, and the standard schedule-quality measures used in the DCMA 14-point assessment.
 - **Explains it:** the chain of work that sets the finish date, the key dates, the margin against each deadline, and where the plan is tight.
 - **Answers questions:** what if the permit takes three more weeks, when is the latest we can start, which steps are worth shortening.
-- **Revises a plan you already have.** Send a `.ffplan` saved from FractalFlow. Claude reviews it, changes what you ask, and returns a new file. Whatever it does not edit (custom columns, baselines, time entries) is carried through untouched.
+- **Revises a plan you already have.** Send a `.ffplan` saved from FractalFlow. Claude reviews it, changes what you ask, and returns a new file. Whatever it does not change (custom columns, baselines, time entries) is kept as it was.
 - **Records progress** from a status update and tells you what moved.
 
 ## Example prompts
@@ -26,22 +26,25 @@ Describe a project, or attach a contract, a statement of work, a spreadsheet or 
 
 A `.ffplan` file and a short briefing: the finish date, what drives it, key dates, what to watch, what was assumed, and any questions. Open the file by double-clicking it on a Mac, or from Files, Mail or AirDrop on iPhone and iPad.
 
-FractalFlow recalculates the plan when it opens the file. If a date there differs from one Claude quoted, the app is right.
+FractalFlow schedules the plan when it opens the file. If a date there differs from one Claude quoted, the app is right.
 
-## What it runs
+## What it contains
 
-The plugin contains one skill and one Python script, `skills/fractalflow-plan-builder/scripts/ffplan.py`. Claude runs the script to check a plan, to write the `.ffplan` file, and to read a `.ffplan` you provide. The script uses the Python standard library only. It reads the plan or spec file Claude gives it (and, when revising a plan, the original `.ffplan` that spec was made from), writes the output file Claude names, and adds one identifying line to a new spec the first time it is built. It makes no network requests, starts no other programs and collects nothing. The plugin has no hooks, no servers and no connectors.
+The plugin is one skill: instructions and reference pages in Markdown, and one example plan in JSON. It contains no scripts or programs, no hooks, no servers and no connectors, and it sends nothing anywhere.
+
+Claude writes the `.ffplan` file itself in its working folder, following the format in the skill. When you send a `.ffplan` to review or change, Claude reads that file. If Claude can run code where you use it, it may write its own short calculations to work out the dates it quotes.
 
 One more thing Claude may run, and only if you ask it to open the plan while it has access to your Mac: the macOS command `open -a FractalFlow` on the file it just wrote.
 
 ## Requirements
 
-- Python 3.8 or later where Claude runs.
 - The FractalFlow app to open the file: https://fractalflow.rizkinlabs.com
+- A Claude app that can create files for you to download.
 
 ## Limits
 
 - A schedule is a planning aid. Claude builds it from what you provide and from general knowledge, and marks its estimates as estimates. Check durations, lead times and any date set by a contract or a regulator before you rely on the plan.
+- The dates Claude quotes are its forecast. FractalFlow schedules the plan when it opens the file, and those are the real dates.
 - Durations are whole working days of eight hours, with one calendar for the plan. Finer settings are made in FractalFlow.
 - The plugin does not do resource leveling, cost or risk simulation. FractalFlow does, and some of those features need a paid plan in the app.
 
@@ -52,9 +55,5 @@ The plugin uses only what you give Claude in the conversation. Rizkin Labs recei
 Guide, examples and troubleshooting: https://fractalflow.rizkinlabs.com/plan-builder/
 
 Support: hello@rizkinlabs.com, or the issues tab of this repository.
-
-## Development
-
-Run the tests with `python3 -m unittest discover -s tests`.
 
 Published by Benjamin Rizkin, doing business as Rizkin Labs. MIT license.

@@ -58,7 +58,7 @@ For every type, ask about the waits. The time spent waiting on other people deci
 
 **Shape:** the date is fixed, so plan backward from it: concept and budget, venue and date, suppliers and contracts, programme and content, promotion and registration, logistics, rehearsal, the day, close-out.
 
-**How to plan:** end the preparation on a readiness milestone with a deadline the day before the event. Pin the event itself with `MSO` if the plan continues past it into close-out. `check` then shows the chain of work leading into the event with its float, and `--finish-by` finds the latest safe start. Anything with negative float is already late.
+**How to plan:** end the preparation on a readiness milestone with a deadline the day before the event. Pin the event itself with `MSO` if the plan continues past it into close-out. Then work out the chain of work leading into the event, with its float, and the latest safe start. Anything with negative float is already late.
 
 **Usually forgotten:**
 - Deposit and contract deadlines, cancellation cut-offs.

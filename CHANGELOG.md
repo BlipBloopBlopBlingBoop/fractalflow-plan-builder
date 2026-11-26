@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.2.0
+
+- The plugin no longer ships a script. Claude writes the `.ffplan` file directly from the format in `references/file-format.md`, and FractalFlow schedules the plan when it opens the file.
+- The dates Claude quotes are its own forecast, worked out with the critical path method; the skill says so to the person.
+- Schedule checks are now a review checklist Claude applies by reading the plan.
+- `examples/office-move.json` is a complete plan file in the new format.
+- `references/spec-format.md` is replaced by `references/file-format.md`.
+
 ## 1.1.0
 
 - New plan tool, `scripts/ffplan.py`, replacing `build_ffplan.py`. Commands: `check`, `build`, `extract`.

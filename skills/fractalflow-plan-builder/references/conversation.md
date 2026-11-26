@@ -11,9 +11,9 @@ Decide in the first reply whether to draft or to ask.
 | A goal and some sense of the work ("plan our office move in June, about 40 people") | Draft now. State assumptions. Ask up to three questions with the draft. |
 | A document: contract, statement of work, proposal, brief | Read all of it. Pull out deliverables, dates, obligations, review periods and anything with a number of days. Draft from it, citing where each fixed date came from. |
 | A spreadsheet or task list | Keep their task names and durations. Add what is missing: links, milestones, owners, waits. Tell them what you added. |
-| A `.ffplan` | Run `check` on it before saying anything about it. |
+| A `.ffplan` | Read it through and review it against `schedule-checks.md` before saying anything about it. |
 | Almost nothing ("help me plan a project") | Ask what the project is and what "done" looks like. One message, two or three questions. |
-| A date and a goal ("we open on June 1") | Draft, put the date on the finish milestone as a deadline, and report the margin or the shortfall. Offer `--finish-by` to find the latest safe start. |
+| A date and a goal ("we open on June 1") | Draft, put the date on the finish milestone as a deadline, and report the margin or the shortfall. Offer to work out the latest safe start. |
 | Something large or high-stakes with real choices about scope or detail | Ask first: confirm the scope boundary and the level of detail, then build. |
 | Material that contradicts itself | Name the contradiction and ask which is right before building on it. |
 
@@ -68,7 +68,7 @@ Listen to how they write and match it.
 
 **A scheduler or controls specialist:**
 - Be exact. Quote float in days, name link types, state the calendar.
-- Give the full measures table if asked. Say what the tool does not model.
+- Give the full measures table if asked. Say what you worked out yourself and what the app will settle.
 
 ## Presenting a plan
 
@@ -94,22 +94,22 @@ Do not shorten estimates. Look at BIGGEST LEVERS and the driving path, then offe
 4. Add people or shifts to work on the driving path where more hands help. This adds cost, and for thinking work it often does not help.
 5. Deliver in stages: the essential part by the date, the rest after.
 6. Cut or simplify scope.
-Try the candidate with `--what-if`, or edit the spec and re-check: the driving path often moves to a different chain once you shorten the first one. Report the new finish, the new margin and what the option costs. `references/planning-method.md` has the detail.
+Work the candidate through your date table: the driving path often moves to a different chain once you shorten the first one. Report the new finish, the new margin and what the option costs. `references/planning-method.md` has the detail.
 
 **"When do we have to start?"**
-`check plan.json --finish-by DATE`. Report the latest start, and say that starting then leaves no margin.
+Run the backward pass from that date. Report the latest start, and say that starting then leaves no margin.
 
 **"What if the permit takes three more weeks?"**
-`check plan.json --what-if permit:+15`. Report how far the finish moves, what happens to each deadline, and whether the driving path changes. If the finish does not move, say how much float absorbed it.
+Lengthen that task and work the dates through again. Report how far the finish moves, what happens to each deadline, and whether the driving path changes. If the finish does not move, say how much float absorbed it.
 
 **"Why does this start so late?" or "Why did that move?"**
-`check plan.json --tasks` shows what sets each start: a predecessor, a constraint, or the project start. Trace it back in words.
+Find what sets its start: a predecessor, a constraint, or the project start. Trace it back in words.
 
 **"What should I worry about?"**
 The outside waits on the driving path, the tasks under LEAST FLOAT, any merge points, the open risks, and any deadline with little margin. Three items, most serious first.
 
 **"Add this" or "Take that out."**
-Edit the spec. New work needs a duration, an owner and links both ways. Removing a task means re-linking what it sat between. Re-check and report the effect on the finish.
+Change the plan. New work needs a duration, an owner and links both ways. Removing a task means re-linking what it sat between. Work the dates through again and report the effect on the finish.
 
 **"Can you make it look better for the client?"**
 You can change names, grouping and milestones. You cannot change dates without changing the logic or the estimates, and you say so.
@@ -120,11 +120,11 @@ When they tell you where things stand:
 
 1. Get the status date: "as of when?" Default to today.
 2. Sort what they tell you into three piles:
-   - **Finished:** `percent` 100, with `actualStart` and `actualFinish` if they know them.
-   - **Under way:** `actualStart`, and `remaining`, the working days still needed. Ask "how many days are left on it?" rather than "what percent?". People answer the first far more truthfully.
+   - **Finished:** 100 percent, with the real start and finish if they know them.
+   - **Under way:** the real start, and the working days still needed. Ask "how many days are left on it?" rather than "what percent?". People answer the first far more truthfully.
    - **Not started:** leave it alone, unless it should have started. Then ask what is holding it.
-3. Set `statusDate` and these fields in the spec and re-check.
-4. Deal with what the check reports as overdue or not started, then re-check.
+3. Record the status date and the progress as `file-format.md` describes, and work the dates through again.
+4. Deal with anything overdue or not started (see Progress in `schedule-checks.md`), then work the dates through again.
 5. Report: the new finish and how far it moved, what is now driving it, how much margin each deadline lost, and what needs a decision.
 
 Rules of thumb:
@@ -135,7 +135,7 @@ Rules of thumb:
 
 ## Reviewing someone's plan
 
-1. Run `check` on the file. Read the whole report before writing.
+1. Read the whole file, then go through `schedule-checks.md` before writing.
 2. Start with what the plan says: finish date, driving path, margin against its dates.
 3. Then the findings that could change those dates: missing links, negative float, missed deadlines, hard constraints holding dates in place, overdue work.
 4. Then the findings that make it hard to manage: no owners, vague names, long tasks, lags hiding waits.
@@ -195,9 +195,9 @@ Build as you go. Show the draft after step 4 so they can see it taking shape.
 
 ## Do not
 
-- State a date you did not get from the tool.
+- State a date you have not worked out, or present your forecast as the app's date.
 - Present a guess as a fact, or a general rule as the person's actual lead time.
 - Hide a problem to keep the summary tidy.
 - Ask five questions before showing anything.
-- Dump the full task list or the full check report into the chat unasked.
+- Dump the full task list or a full review into the chat unasked.
 - Lecture. One sentence of explanation, then the plan.

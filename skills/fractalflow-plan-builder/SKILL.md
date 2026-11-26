@@ -20,70 +20,42 @@ The person gets two things from you: a `.ffplan` file, and a short briefing they
 | "Here is where we are" | Update progress | `references/conversation.md` (status updates) |
 | What a term means, or why a task sits where it does | Explain | `references/conversation.md` (plain words) |
 
-This page is enough for a simple plan. Open a reference when the situation calls for it. `references/project-patterns.md` has the usual shape, the commonly forgotten work and the typical risks for common kinds of project. `references/spec-format.md` is the full reference for the spec and the tool.
+This page is enough to plan. Before writing any file, read `references/file-format.md`: it is the exact format, and a file that breaks it will not open. `references/project-patterns.md` has the usual shape, the commonly forgotten work and the typical risks for common kinds of project.
 
 ## Ground rules
 
-1. **Dates come from the tool.** Never state a date, a float or a critical path you have not seen in its output. Working dates out in your head is how wrong dates get promised.
+1. **FractalFlow sets the dates.** It schedules the plan when it opens the file. Before that, any date you give is your own forecast: work it out carefully (see "Working out the dates"), call it a forecast, and say the app's dates are the real ones.
 2. **Use their material and general knowledge, and label the difference.** A duration you estimated is an estimate: say so, and put the basis in the task notes. For anything fixed by a contract, a law or an agency, use what their documents say. If you fall back on general knowledge, mark it as an assumption for them to confirm. Never carry details from one person's documents into someone else's plan.
 3. **Do not make the plan say what they hope.** If the work does not fit the date, show that, then show the options. Shrinking estimates to fit is the most common way plans fail.
-4. **Never write or edit a `.ffplan` by hand.** The tool does it. Hand-edited files are how plans stop opening.
+4. **Write the file exactly as `references/file-format.md` says,** and read it back against that page's rules before handing it over. A file that breaks them will not open.
 5. **A schedule is a planning aid.** It is not legal, contractual, regulatory or safety advice.
 6. **Stay on schedules.** This skill does not cover how FractalFlow works inside (its engine, its code, its pricing rules, unreleased work). If asked, say so and point to the guides at https://fractalflow.rizkinlabs.com. Do not help anyone copy the app or get around its features.
 
-## The tool
+## Working out the dates
 
-One script, standard library only, no network: `scripts/ffplan.py` in this skill's folder.
+Use the critical path method. Before quoting dates, lay the plan out as a table: for each task, its duration and predecessors, then its earliest start and finish in a forward pass, its latest dates in a backward pass, and its float. If you can run code, do the arithmetic in code you write for the purpose. Count working days only, skip weekends and holidays, and count calendar-day tasks straight through.
 
-```
-python3 "${CLAUDE_SKILL_DIR}/scripts/ffplan.py" check   plan.json            # or any .ffplan
-python3 "${CLAUDE_SKILL_DIR}/scripts/ffplan.py" build   plan.json "Name.ffplan"
-python3 "${CLAUDE_SKILL_DIR}/scripts/ffplan.py" extract "Theirs.ffplan" edit.json
-```
+- The driving path is the chain with zero float that ends at the finish.
+- A deadline the forecast misses shows as negative float on the tasks leading to it.
+- For "what if this takes longer" or "how late can we start", change the one input and repeat the passes.
+- On a plan of more than about 40 tasks, or with many constraints and overlapping links, give the finish as approximate and lean on the app.
 
-If `${CLAUDE_SKILL_DIR}` is empty where you are running, use the folder this file was loaded from. If Python 3 is not available, say so. Do not write the file another way.
+For a project professional, `references/schedule-checks.md` has the standard quality measures; work out the ones that matter from your table.
 
-`check` changes nothing. It prints the dates, the driving path (the chain of work that sets the finish date), key dates, deadlines with their margin, the tasks with least float, the biggest levers, findings and a set of standard measures. When the finish hangs on a fixed date, such as a booked event, it also shows the chain of work leading into that date and the float each step has. Add `--tasks` to list every row with its dates, float and what sets its start. Two options answer a single question briefly:
+## The plan in brief
 
-```
-... check plan.json --what-if permit:+10 frame:-2 test:=8     # longer, shorter, or set to
-... check plan.json --finish-by 2027-06-30                    # latest start that still makes the date
-```
+A plan is a set of rows in outline order. For each row decide:
 
-The working loop:
+- **Name**, and whether it is a phase (rows under it), a task or a milestone.
+- **Duration** in whole working days, or calendar days for waits that run on the calendar: reviews by an outside body, shipping, curing, notice periods.
+- **Predecessors**: what must come first, finish-to-start unless the work truly runs in step. Link tasks and milestones, never phases.
+- **Owner**, and any range (optimistic, pessimistic) for an uncertain duration.
+- **Deadline** for a date to aim for; a **constraint** only for a date the outside world fixes.
+- **Progress**: a status date; real start and finish on finished tasks; real start and working days still needed on tasks under way.
 
-1. Write the spec (JSON) in the working folder.
-2. Run `check`. Fix every ERROR. For every WARN, fix it or decide to accept it and be ready to say why. NOTEs are judgement calls. `references/schedule-checks.md` explains each finding and its fix.
-3. Run `check` again until it is clean or every remaining warning is a choice you can defend.
-4. Run `build`, then give the person the file.
+Then a short register of the risks, assumptions and open decisions that could move the dates.
 
-## The spec in brief
-
-```json
-{
-  "name": "Kitchen Renovation",
-  "start": "2027-01-04",
-  "calendar": {"workdays": ["Mon","Tue","Wed","Thu","Fri"], "holidays": ["2027-01-18"]},
-  "tasks": [
-    {"key": "design", "name": "Design", "level": 1},
-    {"key": "plans", "name": "Draw plans", "level": 2, "days": 5, "owner": "Designer", "optimistic": 4, "pessimistic": 8},
-    {"key": "permit", "name": "City permit review", "level": 2, "days": 30, "elapsed": true, "pred": ["plans"], "owner": "City", "notes": "Calendar days. Assumption: confirm with the city."},
-    {"key": "build", "name": "Build", "level": 1},
-    {"key": "demo", "name": "Demolish old kitchen", "level": 2, "days": 2, "pred": ["permit"], "owner": "Contractor"},
-    {"key": "done", "name": "Kitchen ready", "level": 1, "milestone": true, "pred": ["demo"], "deadline": "2027-04-30"}
-  ],
-  "risks": [{"title": "Permit review runs long", "probability": 3, "impact": 4, "owner": "Homeowner", "response": "Submit early; ask about an expedited review.", "tasks": ["permit"], "impactDays": 15}]
-}
-```
-
-- Rows are in outline order. A row followed by deeper rows is a phase: it takes its dates from the rows under it, so give it only a name.
-- `days` are whole working days. `"elapsed": true` makes them calendar days, for waits that run on the calendar: reviews by an outside body, shipping, curing, notice periods.
-- `pred` lists what must come first: `"key"`, `"key SS"`, `"key FF"`, `"key FS+2d"`. Link tasks and milestones, never phases.
-- `deadline` is a date to aim for and be measured against. `constraint` with `constraintDate` (`SNET`, `FNET`, `SNLT`, `FNLT`, `MSO`, `MFO`) pins a task and is for dates the outside world really fixes.
-- `owner` is who answers for the task. `optimistic` and `pessimistic` give the range in days.
-- Progress: `statusDate` at the top. On a task under way, `actualStart` and `remaining` (working days still needed). On a finished task, `percent` 100 with `actualStart` and `actualFinish`.
-
-Field names are checked: a misspelt field is an error, not a silent omission. `examples/office-move.json` is a complete plan that checks clean.
+Write it as the file described in `references/file-format.md`. `examples/office-move.json` is a complete 33-row plan in that format. When the person wants to see the plan in the conversation first, show it as a short outline or table before writing the file.
 
 ## How to talk
 
@@ -115,7 +87,7 @@ The method, with the reasoning, is in `references/planning-method.md`. The rules
 
 ## Handing over a plan
 
-Give the file, then a briefing short enough to read on a phone. Use the tool's output for every date and number.
+Give the file, then a briefing short enough to read on a phone. Every date in it is your forecast.
 
 ```
 [Plan name]: finishes [date], [N] working days from [start].
@@ -125,24 +97,23 @@ What drives the date: [the driving path in a sentence, naming the two or three s
 Key dates: [3 to 6 milestones with dates].
 Watch: [the tightest spots: waits on outside parties, tasks with little float, top risks].
 Assumed: [the estimates and guesses they should confirm].
-Check: [clean, or the warnings you accepted and why].
+Check: [what you checked, and anything you chose to leave and why].
 Questions: [up to three, each with the default you used].
 ```
 
 Then how to open it, in one line, and one suggested next step. Leave out any line that has nothing to say. For a project professional, add the measures that came out as "review".
 
-Tell them once, plainly: FractalFlow recalculates the plan when it opens the file, and if a date there differs from one you quoted, the app is right.
+Tell them once, plainly: FractalFlow schedules the plan when it opens the file, and if a date there differs from one you quoted, the app is right.
 
 When uncertain tasks carry a range, mention that FractalFlow's risk simulation works from those ranges and may need a paid plan in the app. Do not run or imitate a simulation yourself.
 
 ## Changing a plan
 
-- **A plan you built earlier in this conversation:** edit the spec, check, build again, and say what changed: the finish before and after, and anything new on the driving path. The spec remembers the plan's identity, so the new file opens as a new version beside the old one.
-- **A plan they bring:** ask for the `.ffplan` (in FractalFlow: File, Save a Copy on Mac; Export, Save a Copy on iPhone and iPad). Run `check` on it first; a file saved by the app carries the app's own dates, and the tool reports those. To change it, run `extract`, edit the spec, `check`, then `build` to a new file name. Rows keep their `id`; add new rows without one; delete a row to remove the task. Everything the spec does not show (custom columns, baselines, time entries, assignment details) is carried through from the original, which must stay next to the spec.
+- **A plan you built earlier in this conversation:** change the file, keeping its `id`, and save it under a new name. Say what changed: the forecast finish before and after, and anything new on the driving path.
+- **A plan they bring:** ask for the `.ffplan` (in FractalFlow: File, Save a Copy on Mac; Export, Save a Copy on iPhone and iPad). A file saved by the app holds the app's own dates for every task, so review it from those. To change it, follow "Changing a file the app saved" in `references/file-format.md`: change only what you must, keep everything else exactly as it was, and save to a new file name.
 - **Their plan is in another format:** FractalFlow opens Microsoft Project files itself, so ask them to open the file there and send you a copy saved as `.ffplan`. A spreadsheet or task list you can read directly as the source for a new plan.
 - **A starter plan** (named "(sample)"): give their version its own name.
-- A rebuilt plan opens as a separate plan in their library. Say so, and suggest they remove the old one once they are happy.
-- Some plans use things the tool does not work out dates for (part-day durations, unusual working hours, manual scheduling and a few more). `check` says so. You can still review and edit them; FractalFlow supplies the dates when the file opens. Tell the person their new dates will appear in the app.
+- A changed plan opens as a separate plan in their library. Say so, and suggest they remove the old one once they are happy.
 
 ## Opening the file
 
@@ -155,4 +126,4 @@ When uncertain tasks carry a range, mention that FractalFlow's risk simulation w
 - `references/planning-method.md`: scope and breakdown, sequencing, estimating, calendars, constraints, margin, risk, shortening a plan, tracking progress.
 - `references/schedule-checks.md`: every finding and measure, why it matters, how to fix it, when to accept it.
 - `references/project-patterns.md`: typical shape, forgotten work and risks for common project types.
-- `references/spec-format.md`: every field of the spec, the commands, and what the tool does and does not model.
+- `references/file-format.md`: the exact `.ffplan` format, writing a new plan and changing an existing one.

@@ -1,50 +1,1220 @@
 {
-  "name": "Office Move",
-  "start": "2027-02-22",
-  "calendar": {"workdays": ["Mon", "Tue", "Wed", "Thu", "Fri"], "holidays": ["2027-05-31", "2027-07-05"]},
+ "version": 1,
+ "id": "6F1C2B8E-4A3D-4E8B-9C21-7D5E0A9B3F14",
+ "name": "Office Move",
+ "project": {
+  "meta": {
+   "name": "Office Move",
+   "schemaVersion": "1.0",
+   "source": "mspdi",
+   "projectStart": "2027-02-22T08:00:00.000Z",
+   "projectFinish": "2027-02-22T08:00:00.000Z",
+   "defaultCalendarId": "1",
+   "minutesPerDay": 480,
+   "minutesPerWeek": 2400,
+   "daysPerMonth": 20,
+   "parsedAt": "2026-11-26T12:00:00.000Z"
+  },
   "tasks": [
-    {"key": "commit", "name": "Decide and commit", "level": 1},
-    {"key": "needs", "name": "Confirm headcount and space needs", "level": 2, "days": 5, "owner": "Office manager"},
-    {"key": "tour", "name": "Shortlist and tour spaces", "level": 2, "days": 10, "pred": ["needs"], "owner": "Office manager", "optimistic": 7, "pessimistic": 15},
-    {"key": "terms", "name": "Negotiate lease terms", "level": 2, "days": 10, "pred": ["tour"], "owner": "Finance lead", "optimistic": 5, "pessimistic": 20, "notes": "Estimate. Two rounds of comments assumed."},
-    {"key": "legal", "name": "Landlord and legal review", "level": 2, "days": 14, "elapsed": true, "pred": ["terms"], "owner": "Landlord", "notes": "Calendar days. Landlord quoted two weeks."},
-    {"key": "signed", "name": "Lease signed", "level": 2, "milestone": true, "pred": ["legal"], "owner": "Finance lead"},
-
-    {"key": "design", "name": "Design the space", "level": 1},
-    {"key": "testfit", "name": "Draw test fit and floor plan", "level": 2, "days": 8, "pred": ["signed"], "owner": "Designer"},
-    {"key": "input", "name": "Collect staff input on layout", "level": 2, "days": 5, "pred": ["testfit"], "owner": "Office manager"},
-    {"key": "layout", "name": "Final layout approved", "level": 2, "milestone": true, "pred": ["input"], "owner": "Office manager"},
-
-    {"key": "build", "name": "Build out", "level": 1},
-    {"key": "permit", "name": "Building permit review", "level": 2, "days": 21, "elapsed": true, "pred": ["layout"], "owner": "City", "optimistic": 14, "pessimistic": 45, "notes": "Calendar days. Assumption: confirm the current review time with the city."},
-    {"key": "order", "name": "Order furniture", "level": 2, "days": 2, "pred": ["layout"], "owner": "Office manager"},
-    {"key": "lead", "name": "Furniture lead time", "level": 2, "days": 42, "elapsed": true, "pred": ["order"], "owner": "Furniture vendor", "notes": "Calendar days. Vendor quote: six weeks from order."},
-    {"key": "walls", "name": "Build partitions and power", "level": 2, "days": 15, "pred": ["permit"], "owner": "Contractor", "optimistic": 12, "pessimistic": 25},
-    {"key": "paint", "name": "Paint and lay flooring", "level": 2, "days": 6, "pred": ["walls"], "owner": "Contractor"},
-    {"key": "install", "name": "Install furniture", "level": 2, "days": 4, "pred": ["lead", "paint"], "owner": "Furniture vendor"},
-    {"key": "punch", "name": "Close punch list and get landlord sign-off", "level": 2, "days": 3, "pred": ["install"], "owner": "Contractor"},
-
-    {"key": "tech", "name": "Technology", "level": 1},
-    {"key": "circuit", "name": "Order internet circuit", "level": 2, "days": 1, "pred": ["signed"], "owner": "IT lead"},
-    {"key": "carrier", "name": "Carrier install lead time", "level": 2, "days": 30, "elapsed": true, "pred": ["circuit"], "owner": "Carrier", "optimistic": 21, "pessimistic": 60, "notes": "Calendar days. Carrier standard interval."},
-    {"key": "cable", "name": "Pull cable and fit network closet", "level": 2, "days": 5, "pred": ["walls"], "owner": "IT lead"},
-    {"key": "wifi", "name": "Set up Wi-Fi, printers and meeting rooms", "level": 2, "days": 4, "pred": ["cable", "carrier"], "owner": "IT lead"},
-    {"key": "nettest", "name": "Network tested", "level": 2, "milestone": true, "pred": ["wifi"], "owner": "IT lead"},
-
-    {"key": "move", "name": "Move", "level": 1},
-    {"key": "notice", "name": "Give notice on the current lease", "level": 2, "days": 1, "pred": ["signed"], "owner": "Finance lead", "deadline": "2027-05-28", "notes": "Current lease needs 60 days notice before the end date of 2027-07-30."},
-    {"key": "movers", "name": "Book movers", "level": 2, "days": 2, "pred": ["layout"], "owner": "Office manager"},
-    {"key": "margin", "name": "Schedule contingency", "level": 2, "days": 5, "pred": ["punch", "nettest"], "owner": "Office manager", "notes": "Margin for the build and the carrier. Give it up only by decision."},
-    {"key": "pack", "name": "Pack and label", "level": 2, "days": 3, "pred": ["movers", "margin"], "owner": "All staff", "constraint": "SNET", "constraintDate": "2027-07-14", "notes": "Pack in the last three working days before the move, so people can keep working until then."},
-    {"key": "weekend", "name": "Move over the weekend", "level": 2, "days": 2, "elapsed": true, "pred": ["pack"], "owner": "Movers", "constraint": "SNET", "constraintDate": "2027-07-17", "notes": "Movers are booked for Saturday and Sunday so no working day is lost."},
-    {"key": "day1", "name": "First day in the new office", "level": 2, "milestone": true, "pred": ["weekend"], "owner": "Office manager"},
-    {"key": "clear", "name": "Clear and clean the old office", "level": 2, "days": 3, "pred": ["day1"], "owner": "Office manager"},
-    {"key": "done", "name": "Old office handed back", "level": 2, "milestone": true, "pred": ["clear", "notice"], "owner": "Finance lead", "deadline": "2027-07-30"}
+   {
+    "id": "1",
+    "outlineNumber": "1",
+    "name": "Decide and commit",
+    "outlineLevel": 1,
+    "parentId": null,
+    "isSummary": true,
+    "isMilestone": false,
+    "start": "2027-02-22T08:00:00.000Z",
+    "finish": "2027-02-22T08:00:00.000Z",
+    "durationMinutes": 0,
+    "durationDays": 0.0,
+    "percentComplete": 0,
+    "constraintType": "AS_SOON_AS_POSSIBLE",
+    "constraintDate": null,
+    "deadline": null
+   },
+   {
+    "id": "2",
+    "outlineNumber": "1.1",
+    "name": "Confirm headcount and space needs",
+    "outlineLevel": 2,
+    "parentId": "1",
+    "isSummary": false,
+    "isMilestone": false,
+    "start": "2027-02-22T08:00:00.000Z",
+    "finish": "2027-02-22T17:00:00.000Z",
+    "durationMinutes": 2400,
+    "durationDays": 5.0,
+    "percentComplete": 0,
+    "constraintType": "AS_SOON_AS_POSSIBLE",
+    "constraintDate": null,
+    "deadline": null
+   },
+   {
+    "id": "3",
+    "outlineNumber": "1.2",
+    "name": "Shortlist and tour spaces",
+    "outlineLevel": 2,
+    "parentId": "1",
+    "isSummary": false,
+    "isMilestone": false,
+    "start": "2027-02-22T08:00:00.000Z",
+    "finish": "2027-02-22T17:00:00.000Z",
+    "durationMinutes": 4800,
+    "durationDays": 10.0,
+    "percentComplete": 0,
+    "constraintType": "AS_SOON_AS_POSSIBLE",
+    "constraintDate": null,
+    "deadline": null,
+    "optimisticDurationMinutes": 3360,
+    "pessimisticDurationMinutes": 7200
+   },
+   {
+    "id": "4",
+    "outlineNumber": "1.3",
+    "name": "Negotiate lease terms",
+    "outlineLevel": 2,
+    "parentId": "1",
+    "isSummary": false,
+    "isMilestone": false,
+    "start": "2027-02-22T08:00:00.000Z",
+    "finish": "2027-02-22T17:00:00.000Z",
+    "durationMinutes": 4800,
+    "durationDays": 10.0,
+    "percentComplete": 0,
+    "constraintType": "AS_SOON_AS_POSSIBLE",
+    "constraintDate": null,
+    "deadline": null,
+    "notes": "Estimate. Two rounds of comments assumed.",
+    "optimisticDurationMinutes": 2400,
+    "pessimisticDurationMinutes": 9600
+   },
+   {
+    "id": "5",
+    "outlineNumber": "1.4",
+    "name": "Landlord and legal review",
+    "outlineLevel": 2,
+    "parentId": "1",
+    "isSummary": false,
+    "isMilestone": false,
+    "start": "2027-02-22T08:00:00.000Z",
+    "finish": "2027-02-22T17:00:00.000Z",
+    "durationMinutes": 20160,
+    "durationDays": 42.0,
+    "percentComplete": 0,
+    "constraintType": "AS_SOON_AS_POSSIBLE",
+    "constraintDate": null,
+    "deadline": null,
+    "notes": "Calendar days. Landlord quoted two weeks.",
+    "durationIsElapsed": true
+   },
+   {
+    "id": "6",
+    "outlineNumber": "1.5",
+    "name": "Lease signed",
+    "outlineLevel": 2,
+    "parentId": "1",
+    "isSummary": false,
+    "isMilestone": true,
+    "start": "2027-02-22T08:00:00.000Z",
+    "finish": "2027-02-22T08:00:00.000Z",
+    "durationMinutes": 0,
+    "durationDays": 0.0,
+    "percentComplete": 0,
+    "constraintType": "AS_SOON_AS_POSSIBLE",
+    "constraintDate": null,
+    "deadline": null
+   },
+   {
+    "id": "7",
+    "outlineNumber": "2",
+    "name": "Design the space",
+    "outlineLevel": 1,
+    "parentId": null,
+    "isSummary": true,
+    "isMilestone": false,
+    "start": "2027-02-22T08:00:00.000Z",
+    "finish": "2027-02-22T08:00:00.000Z",
+    "durationMinutes": 0,
+    "durationDays": 0.0,
+    "percentComplete": 0,
+    "constraintType": "AS_SOON_AS_POSSIBLE",
+    "constraintDate": null,
+    "deadline": null
+   },
+   {
+    "id": "8",
+    "outlineNumber": "2.1",
+    "name": "Draw test fit and floor plan",
+    "outlineLevel": 2,
+    "parentId": "7",
+    "isSummary": false,
+    "isMilestone": false,
+    "start": "2027-02-22T08:00:00.000Z",
+    "finish": "2027-02-22T17:00:00.000Z",
+    "durationMinutes": 3840,
+    "durationDays": 8.0,
+    "percentComplete": 0,
+    "constraintType": "AS_SOON_AS_POSSIBLE",
+    "constraintDate": null,
+    "deadline": null
+   },
+   {
+    "id": "9",
+    "outlineNumber": "2.2",
+    "name": "Collect staff input on layout",
+    "outlineLevel": 2,
+    "parentId": "7",
+    "isSummary": false,
+    "isMilestone": false,
+    "start": "2027-02-22T08:00:00.000Z",
+    "finish": "2027-02-22T17:00:00.000Z",
+    "durationMinutes": 2400,
+    "durationDays": 5.0,
+    "percentComplete": 0,
+    "constraintType": "AS_SOON_AS_POSSIBLE",
+    "constraintDate": null,
+    "deadline": null
+   },
+   {
+    "id": "10",
+    "outlineNumber": "2.3",
+    "name": "Final layout approved",
+    "outlineLevel": 2,
+    "parentId": "7",
+    "isSummary": false,
+    "isMilestone": true,
+    "start": "2027-02-22T08:00:00.000Z",
+    "finish": "2027-02-22T08:00:00.000Z",
+    "durationMinutes": 0,
+    "durationDays": 0.0,
+    "percentComplete": 0,
+    "constraintType": "AS_SOON_AS_POSSIBLE",
+    "constraintDate": null,
+    "deadline": null
+   },
+   {
+    "id": "11",
+    "outlineNumber": "3",
+    "name": "Build out",
+    "outlineLevel": 1,
+    "parentId": null,
+    "isSummary": true,
+    "isMilestone": false,
+    "start": "2027-02-22T08:00:00.000Z",
+    "finish": "2027-02-22T08:00:00.000Z",
+    "durationMinutes": 0,
+    "durationDays": 0.0,
+    "percentComplete": 0,
+    "constraintType": "AS_SOON_AS_POSSIBLE",
+    "constraintDate": null,
+    "deadline": null
+   },
+   {
+    "id": "12",
+    "outlineNumber": "3.1",
+    "name": "Building permit review",
+    "outlineLevel": 2,
+    "parentId": "11",
+    "isSummary": false,
+    "isMilestone": false,
+    "start": "2027-02-22T08:00:00.000Z",
+    "finish": "2027-02-22T17:00:00.000Z",
+    "durationMinutes": 30240,
+    "durationDays": 63.0,
+    "percentComplete": 0,
+    "constraintType": "AS_SOON_AS_POSSIBLE",
+    "constraintDate": null,
+    "deadline": null,
+    "notes": "Calendar days. Assumption: confirm the current review time with the city.",
+    "durationIsElapsed": true,
+    "optimisticDurationMinutes": 20160,
+    "pessimisticDurationMinutes": 64800
+   },
+   {
+    "id": "13",
+    "outlineNumber": "3.2",
+    "name": "Order furniture",
+    "outlineLevel": 2,
+    "parentId": "11",
+    "isSummary": false,
+    "isMilestone": false,
+    "start": "2027-02-22T08:00:00.000Z",
+    "finish": "2027-02-22T17:00:00.000Z",
+    "durationMinutes": 960,
+    "durationDays": 2.0,
+    "percentComplete": 0,
+    "constraintType": "AS_SOON_AS_POSSIBLE",
+    "constraintDate": null,
+    "deadline": null
+   },
+   {
+    "id": "14",
+    "outlineNumber": "3.3",
+    "name": "Furniture lead time",
+    "outlineLevel": 2,
+    "parentId": "11",
+    "isSummary": false,
+    "isMilestone": false,
+    "start": "2027-02-22T08:00:00.000Z",
+    "finish": "2027-02-22T17:00:00.000Z",
+    "durationMinutes": 60480,
+    "durationDays": 126.0,
+    "percentComplete": 0,
+    "constraintType": "AS_SOON_AS_POSSIBLE",
+    "constraintDate": null,
+    "deadline": null,
+    "notes": "Calendar days. Vendor quote: six weeks from order.",
+    "durationIsElapsed": true
+   },
+   {
+    "id": "15",
+    "outlineNumber": "3.4",
+    "name": "Build partitions and power",
+    "outlineLevel": 2,
+    "parentId": "11",
+    "isSummary": false,
+    "isMilestone": false,
+    "start": "2027-02-22T08:00:00.000Z",
+    "finish": "2027-02-22T17:00:00.000Z",
+    "durationMinutes": 7200,
+    "durationDays": 15.0,
+    "percentComplete": 0,
+    "constraintType": "AS_SOON_AS_POSSIBLE",
+    "constraintDate": null,
+    "deadline": null,
+    "optimisticDurationMinutes": 5760,
+    "pessimisticDurationMinutes": 12000
+   },
+   {
+    "id": "16",
+    "outlineNumber": "3.5",
+    "name": "Paint and lay flooring",
+    "outlineLevel": 2,
+    "parentId": "11",
+    "isSummary": false,
+    "isMilestone": false,
+    "start": "2027-02-22T08:00:00.000Z",
+    "finish": "2027-02-22T17:00:00.000Z",
+    "durationMinutes": 2880,
+    "durationDays": 6.0,
+    "percentComplete": 0,
+    "constraintType": "AS_SOON_AS_POSSIBLE",
+    "constraintDate": null,
+    "deadline": null
+   },
+   {
+    "id": "17",
+    "outlineNumber": "3.6",
+    "name": "Install furniture",
+    "outlineLevel": 2,
+    "parentId": "11",
+    "isSummary": false,
+    "isMilestone": false,
+    "start": "2027-02-22T08:00:00.000Z",
+    "finish": "2027-02-22T17:00:00.000Z",
+    "durationMinutes": 1920,
+    "durationDays": 4.0,
+    "percentComplete": 0,
+    "constraintType": "AS_SOON_AS_POSSIBLE",
+    "constraintDate": null,
+    "deadline": null
+   },
+   {
+    "id": "18",
+    "outlineNumber": "3.7",
+    "name": "Close punch list and get landlord sign-off",
+    "outlineLevel": 2,
+    "parentId": "11",
+    "isSummary": false,
+    "isMilestone": false,
+    "start": "2027-02-22T08:00:00.000Z",
+    "finish": "2027-02-22T17:00:00.000Z",
+    "durationMinutes": 1440,
+    "durationDays": 3.0,
+    "percentComplete": 0,
+    "constraintType": "AS_SOON_AS_POSSIBLE",
+    "constraintDate": null,
+    "deadline": null
+   },
+   {
+    "id": "19",
+    "outlineNumber": "4",
+    "name": "Technology",
+    "outlineLevel": 1,
+    "parentId": null,
+    "isSummary": true,
+    "isMilestone": false,
+    "start": "2027-02-22T08:00:00.000Z",
+    "finish": "2027-02-22T08:00:00.000Z",
+    "durationMinutes": 0,
+    "durationDays": 0.0,
+    "percentComplete": 0,
+    "constraintType": "AS_SOON_AS_POSSIBLE",
+    "constraintDate": null,
+    "deadline": null
+   },
+   {
+    "id": "20",
+    "outlineNumber": "4.1",
+    "name": "Order internet circuit",
+    "outlineLevel": 2,
+    "parentId": "19",
+    "isSummary": false,
+    "isMilestone": false,
+    "start": "2027-02-22T08:00:00.000Z",
+    "finish": "2027-02-22T17:00:00.000Z",
+    "durationMinutes": 480,
+    "durationDays": 1.0,
+    "percentComplete": 0,
+    "constraintType": "AS_SOON_AS_POSSIBLE",
+    "constraintDate": null,
+    "deadline": null
+   },
+   {
+    "id": "21",
+    "outlineNumber": "4.2",
+    "name": "Carrier install lead time",
+    "outlineLevel": 2,
+    "parentId": "19",
+    "isSummary": false,
+    "isMilestone": false,
+    "start": "2027-02-22T08:00:00.000Z",
+    "finish": "2027-02-22T17:00:00.000Z",
+    "durationMinutes": 43200,
+    "durationDays": 90.0,
+    "percentComplete": 0,
+    "constraintType": "AS_SOON_AS_POSSIBLE",
+    "constraintDate": null,
+    "deadline": null,
+    "notes": "Calendar days. Carrier standard interval.",
+    "durationIsElapsed": true,
+    "optimisticDurationMinutes": 30240,
+    "pessimisticDurationMinutes": 86400
+   },
+   {
+    "id": "22",
+    "outlineNumber": "4.3",
+    "name": "Pull cable and fit network closet",
+    "outlineLevel": 2,
+    "parentId": "19",
+    "isSummary": false,
+    "isMilestone": false,
+    "start": "2027-02-22T08:00:00.000Z",
+    "finish": "2027-02-22T17:00:00.000Z",
+    "durationMinutes": 2400,
+    "durationDays": 5.0,
+    "percentComplete": 0,
+    "constraintType": "AS_SOON_AS_POSSIBLE",
+    "constraintDate": null,
+    "deadline": null
+   },
+   {
+    "id": "23",
+    "outlineNumber": "4.4",
+    "name": "Set up Wi-Fi, printers and meeting rooms",
+    "outlineLevel": 2,
+    "parentId": "19",
+    "isSummary": false,
+    "isMilestone": false,
+    "start": "2027-02-22T08:00:00.000Z",
+    "finish": "2027-02-22T17:00:00.000Z",
+    "durationMinutes": 1920,
+    "durationDays": 4.0,
+    "percentComplete": 0,
+    "constraintType": "AS_SOON_AS_POSSIBLE",
+    "constraintDate": null,
+    "deadline": null
+   },
+   {
+    "id": "24",
+    "outlineNumber": "4.5",
+    "name": "Network tested",
+    "outlineLevel": 2,
+    "parentId": "19",
+    "isSummary": false,
+    "isMilestone": true,
+    "start": "2027-02-22T08:00:00.000Z",
+    "finish": "2027-02-22T08:00:00.000Z",
+    "durationMinutes": 0,
+    "durationDays": 0.0,
+    "percentComplete": 0,
+    "constraintType": "AS_SOON_AS_POSSIBLE",
+    "constraintDate": null,
+    "deadline": null
+   },
+   {
+    "id": "25",
+    "outlineNumber": "5",
+    "name": "Move",
+    "outlineLevel": 1,
+    "parentId": null,
+    "isSummary": true,
+    "isMilestone": false,
+    "start": "2027-02-22T08:00:00.000Z",
+    "finish": "2027-02-22T08:00:00.000Z",
+    "durationMinutes": 0,
+    "durationDays": 0.0,
+    "percentComplete": 0,
+    "constraintType": "AS_SOON_AS_POSSIBLE",
+    "constraintDate": null,
+    "deadline": null
+   },
+   {
+    "id": "26",
+    "outlineNumber": "5.1",
+    "name": "Give notice on the current lease",
+    "outlineLevel": 2,
+    "parentId": "25",
+    "isSummary": false,
+    "isMilestone": false,
+    "start": "2027-02-22T08:00:00.000Z",
+    "finish": "2027-02-22T17:00:00.000Z",
+    "durationMinutes": 480,
+    "durationDays": 1.0,
+    "percentComplete": 0,
+    "constraintType": "AS_SOON_AS_POSSIBLE",
+    "constraintDate": null,
+    "deadline": "2027-05-28T17:00:00.000Z",
+    "notes": "Current lease needs 60 days notice before the end date of 2027-07-30."
+   },
+   {
+    "id": "27",
+    "outlineNumber": "5.2",
+    "name": "Book movers",
+    "outlineLevel": 2,
+    "parentId": "25",
+    "isSummary": false,
+    "isMilestone": false,
+    "start": "2027-02-22T08:00:00.000Z",
+    "finish": "2027-02-22T17:00:00.000Z",
+    "durationMinutes": 960,
+    "durationDays": 2.0,
+    "percentComplete": 0,
+    "constraintType": "AS_SOON_AS_POSSIBLE",
+    "constraintDate": null,
+    "deadline": null
+   },
+   {
+    "id": "28",
+    "outlineNumber": "5.3",
+    "name": "Schedule contingency",
+    "outlineLevel": 2,
+    "parentId": "25",
+    "isSummary": false,
+    "isMilestone": false,
+    "start": "2027-02-22T08:00:00.000Z",
+    "finish": "2027-02-22T17:00:00.000Z",
+    "durationMinutes": 2400,
+    "durationDays": 5.0,
+    "percentComplete": 0,
+    "constraintType": "AS_SOON_AS_POSSIBLE",
+    "constraintDate": null,
+    "deadline": null,
+    "notes": "Margin for the build and the carrier. Give it up only by decision."
+   },
+   {
+    "id": "29",
+    "outlineNumber": "5.4",
+    "name": "Pack and label",
+    "outlineLevel": 2,
+    "parentId": "25",
+    "isSummary": false,
+    "isMilestone": false,
+    "start": "2027-02-22T08:00:00.000Z",
+    "finish": "2027-02-22T17:00:00.000Z",
+    "durationMinutes": 1440,
+    "durationDays": 3.0,
+    "percentComplete": 0,
+    "constraintType": "START_NO_EARLIER_THAN",
+    "constraintDate": "2027-07-14T08:00:00.000Z",
+    "deadline": null,
+    "notes": "Pack in the last three working days before the move, so people can keep working until then."
+   },
+   {
+    "id": "30",
+    "outlineNumber": "5.5",
+    "name": "Move over the weekend",
+    "outlineLevel": 2,
+    "parentId": "25",
+    "isSummary": false,
+    "isMilestone": false,
+    "start": "2027-02-22T08:00:00.000Z",
+    "finish": "2027-02-22T17:00:00.000Z",
+    "durationMinutes": 2880,
+    "durationDays": 6.0,
+    "percentComplete": 0,
+    "constraintType": "START_NO_EARLIER_THAN",
+    "constraintDate": "2027-07-17T08:00:00.000Z",
+    "deadline": null,
+    "notes": "Movers are booked for Saturday and Sunday so no working day is lost.",
+    "durationIsElapsed": true
+   },
+   {
+    "id": "31",
+    "outlineNumber": "5.6",
+    "name": "First day in the new office",
+    "outlineLevel": 2,
+    "parentId": "25",
+    "isSummary": false,
+    "isMilestone": true,
+    "start": "2027-02-22T08:00:00.000Z",
+    "finish": "2027-02-22T08:00:00.000Z",
+    "durationMinutes": 0,
+    "durationDays": 0.0,
+    "percentComplete": 0,
+    "constraintType": "AS_SOON_AS_POSSIBLE",
+    "constraintDate": null,
+    "deadline": null
+   },
+   {
+    "id": "32",
+    "outlineNumber": "5.7",
+    "name": "Clear and clean the old office",
+    "outlineLevel": 2,
+    "parentId": "25",
+    "isSummary": false,
+    "isMilestone": false,
+    "start": "2027-02-22T08:00:00.000Z",
+    "finish": "2027-02-22T17:00:00.000Z",
+    "durationMinutes": 1440,
+    "durationDays": 3.0,
+    "percentComplete": 0,
+    "constraintType": "AS_SOON_AS_POSSIBLE",
+    "constraintDate": null,
+    "deadline": null
+   },
+   {
+    "id": "33",
+    "outlineNumber": "5.8",
+    "name": "Old office handed back",
+    "outlineLevel": 2,
+    "parentId": "25",
+    "isSummary": false,
+    "isMilestone": true,
+    "start": "2027-02-22T08:00:00.000Z",
+    "finish": "2027-02-22T08:00:00.000Z",
+    "durationMinutes": 0,
+    "durationDays": 0.0,
+    "percentComplete": 0,
+    "constraintType": "AS_SOON_AS_POSSIBLE",
+    "constraintDate": null,
+    "deadline": "2027-07-30T17:00:00.000Z"
+   }
+  ],
+  "dependencies": [
+   {
+    "predecessorId": "2",
+    "successorId": "3",
+    "type": "FS",
+    "lagMinutes": 0
+   },
+   {
+    "predecessorId": "3",
+    "successorId": "4",
+    "type": "FS",
+    "lagMinutes": 0
+   },
+   {
+    "predecessorId": "4",
+    "successorId": "5",
+    "type": "FS",
+    "lagMinutes": 0
+   },
+   {
+    "predecessorId": "5",
+    "successorId": "6",
+    "type": "FS",
+    "lagMinutes": 0
+   },
+   {
+    "predecessorId": "6",
+    "successorId": "8",
+    "type": "FS",
+    "lagMinutes": 0
+   },
+   {
+    "predecessorId": "8",
+    "successorId": "9",
+    "type": "FS",
+    "lagMinutes": 0
+   },
+   {
+    "predecessorId": "9",
+    "successorId": "10",
+    "type": "FS",
+    "lagMinutes": 0
+   },
+   {
+    "predecessorId": "10",
+    "successorId": "12",
+    "type": "FS",
+    "lagMinutes": 0
+   },
+   {
+    "predecessorId": "10",
+    "successorId": "13",
+    "type": "FS",
+    "lagMinutes": 0
+   },
+   {
+    "predecessorId": "13",
+    "successorId": "14",
+    "type": "FS",
+    "lagMinutes": 0
+   },
+   {
+    "predecessorId": "12",
+    "successorId": "15",
+    "type": "FS",
+    "lagMinutes": 0
+   },
+   {
+    "predecessorId": "15",
+    "successorId": "16",
+    "type": "FS",
+    "lagMinutes": 0
+   },
+   {
+    "predecessorId": "14",
+    "successorId": "17",
+    "type": "FS",
+    "lagMinutes": 0
+   },
+   {
+    "predecessorId": "16",
+    "successorId": "17",
+    "type": "FS",
+    "lagMinutes": 0
+   },
+   {
+    "predecessorId": "17",
+    "successorId": "18",
+    "type": "FS",
+    "lagMinutes": 0
+   },
+   {
+    "predecessorId": "6",
+    "successorId": "20",
+    "type": "FS",
+    "lagMinutes": 0
+   },
+   {
+    "predecessorId": "20",
+    "successorId": "21",
+    "type": "FS",
+    "lagMinutes": 0
+   },
+   {
+    "predecessorId": "15",
+    "successorId": "22",
+    "type": "FS",
+    "lagMinutes": 0
+   },
+   {
+    "predecessorId": "22",
+    "successorId": "23",
+    "type": "FS",
+    "lagMinutes": 0
+   },
+   {
+    "predecessorId": "21",
+    "successorId": "23",
+    "type": "FS",
+    "lagMinutes": 0
+   },
+   {
+    "predecessorId": "23",
+    "successorId": "24",
+    "type": "FS",
+    "lagMinutes": 0
+   },
+   {
+    "predecessorId": "6",
+    "successorId": "26",
+    "type": "FS",
+    "lagMinutes": 0
+   },
+   {
+    "predecessorId": "10",
+    "successorId": "27",
+    "type": "FS",
+    "lagMinutes": 0
+   },
+   {
+    "predecessorId": "18",
+    "successorId": "28",
+    "type": "FS",
+    "lagMinutes": 0
+   },
+   {
+    "predecessorId": "24",
+    "successorId": "28",
+    "type": "FS",
+    "lagMinutes": 0
+   },
+   {
+    "predecessorId": "27",
+    "successorId": "29",
+    "type": "FS",
+    "lagMinutes": 0
+   },
+   {
+    "predecessorId": "28",
+    "successorId": "29",
+    "type": "FS",
+    "lagMinutes": 0
+   },
+   {
+    "predecessorId": "29",
+    "successorId": "30",
+    "type": "FS",
+    "lagMinutes": 0
+   },
+   {
+    "predecessorId": "30",
+    "successorId": "31",
+    "type": "FS",
+    "lagMinutes": 0
+   },
+   {
+    "predecessorId": "31",
+    "successorId": "32",
+    "type": "FS",
+    "lagMinutes": 0
+   },
+   {
+    "predecessorId": "32",
+    "successorId": "33",
+    "type": "FS",
+    "lagMinutes": 0
+   },
+   {
+    "predecessorId": "26",
+    "successorId": "33",
+    "type": "FS",
+    "lagMinutes": 0
+   }
+  ],
+  "resources": [
+   {
+    "id": "1",
+    "name": "Office manager",
+    "type": "work",
+    "maxUnits": 1
+   },
+   {
+    "id": "2",
+    "name": "Finance lead",
+    "type": "work",
+    "maxUnits": 1
+   },
+   {
+    "id": "3",
+    "name": "Landlord",
+    "type": "work",
+    "maxUnits": 1
+   },
+   {
+    "id": "4",
+    "name": "Designer",
+    "type": "work",
+    "maxUnits": 1
+   },
+   {
+    "id": "5",
+    "name": "City",
+    "type": "work",
+    "maxUnits": 1
+   },
+   {
+    "id": "6",
+    "name": "Furniture vendor",
+    "type": "work",
+    "maxUnits": 1
+   },
+   {
+    "id": "7",
+    "name": "Contractor",
+    "type": "work",
+    "maxUnits": 1
+   },
+   {
+    "id": "8",
+    "name": "IT lead",
+    "type": "work",
+    "maxUnits": 1
+   },
+   {
+    "id": "9",
+    "name": "Carrier",
+    "type": "work",
+    "maxUnits": 1
+   },
+   {
+    "id": "10",
+    "name": "All staff",
+    "type": "work",
+    "maxUnits": 1
+   },
+   {
+    "id": "11",
+    "name": "Movers",
+    "type": "work",
+    "maxUnits": 1
+   }
+  ],
+  "assignments": [
+   {
+    "taskId": "2",
+    "resourceId": "1",
+    "units": 1,
+    "workMinutes": 2400,
+    "start": "2027-02-22T08:00:00.000Z",
+    "finish": "2027-02-22T17:00:00.000Z"
+   },
+   {
+    "taskId": "3",
+    "resourceId": "1",
+    "units": 1,
+    "workMinutes": 4800,
+    "start": "2027-02-22T08:00:00.000Z",
+    "finish": "2027-02-22T17:00:00.000Z"
+   },
+   {
+    "taskId": "4",
+    "resourceId": "2",
+    "units": 1,
+    "workMinutes": 4800,
+    "start": "2027-02-22T08:00:00.000Z",
+    "finish": "2027-02-22T17:00:00.000Z"
+   },
+   {
+    "taskId": "5",
+    "resourceId": "3",
+    "units": 1,
+    "workMinutes": 0,
+    "start": "2027-02-22T08:00:00.000Z",
+    "finish": "2027-02-22T17:00:00.000Z"
+   },
+   {
+    "taskId": "6",
+    "resourceId": "2",
+    "units": 1,
+    "workMinutes": 0,
+    "start": "2027-02-22T08:00:00.000Z",
+    "finish": "2027-02-22T17:00:00.000Z"
+   },
+   {
+    "taskId": "8",
+    "resourceId": "4",
+    "units": 1,
+    "workMinutes": 3840,
+    "start": "2027-02-22T08:00:00.000Z",
+    "finish": "2027-02-22T17:00:00.000Z"
+   },
+   {
+    "taskId": "9",
+    "resourceId": "1",
+    "units": 1,
+    "workMinutes": 2400,
+    "start": "2027-02-22T08:00:00.000Z",
+    "finish": "2027-02-22T17:00:00.000Z"
+   },
+   {
+    "taskId": "10",
+    "resourceId": "1",
+    "units": 1,
+    "workMinutes": 0,
+    "start": "2027-02-22T08:00:00.000Z",
+    "finish": "2027-02-22T17:00:00.000Z"
+   },
+   {
+    "taskId": "12",
+    "resourceId": "5",
+    "units": 1,
+    "workMinutes": 0,
+    "start": "2027-02-22T08:00:00.000Z",
+    "finish": "2027-02-22T17:00:00.000Z"
+   },
+   {
+    "taskId": "13",
+    "resourceId": "1",
+    "units": 1,
+    "workMinutes": 960,
+    "start": "2027-02-22T08:00:00.000Z",
+    "finish": "2027-02-22T17:00:00.000Z"
+   },
+   {
+    "taskId": "14",
+    "resourceId": "6",
+    "units": 1,
+    "workMinutes": 0,
+    "start": "2027-02-22T08:00:00.000Z",
+    "finish": "2027-02-22T17:00:00.000Z"
+   },
+   {
+    "taskId": "15",
+    "resourceId": "7",
+    "units": 1,
+    "workMinutes": 7200,
+    "start": "2027-02-22T08:00:00.000Z",
+    "finish": "2027-02-22T17:00:00.000Z"
+   },
+   {
+    "taskId": "16",
+    "resourceId": "7",
+    "units": 1,
+    "workMinutes": 2880,
+    "start": "2027-02-22T08:00:00.000Z",
+    "finish": "2027-02-22T17:00:00.000Z"
+   },
+   {
+    "taskId": "17",
+    "resourceId": "6",
+    "units": 1,
+    "workMinutes": 1920,
+    "start": "2027-02-22T08:00:00.000Z",
+    "finish": "2027-02-22T17:00:00.000Z"
+   },
+   {
+    "taskId": "18",
+    "resourceId": "7",
+    "units": 1,
+    "workMinutes": 1440,
+    "start": "2027-02-22T08:00:00.000Z",
+    "finish": "2027-02-22T17:00:00.000Z"
+   },
+   {
+    "taskId": "20",
+    "resourceId": "8",
+    "units": 1,
+    "workMinutes": 480,
+    "start": "2027-02-22T08:00:00.000Z",
+    "finish": "2027-02-22T17:00:00.000Z"
+   },
+   {
+    "taskId": "21",
+    "resourceId": "9",
+    "units": 1,
+    "workMinutes": 0,
+    "start": "2027-02-22T08:00:00.000Z",
+    "finish": "2027-02-22T17:00:00.000Z"
+   },
+   {
+    "taskId": "22",
+    "resourceId": "8",
+    "units": 1,
+    "workMinutes": 2400,
+    "start": "2027-02-22T08:00:00.000Z",
+    "finish": "2027-02-22T17:00:00.000Z"
+   },
+   {
+    "taskId": "23",
+    "resourceId": "8",
+    "units": 1,
+    "workMinutes": 1920,
+    "start": "2027-02-22T08:00:00.000Z",
+    "finish": "2027-02-22T17:00:00.000Z"
+   },
+   {
+    "taskId": "24",
+    "resourceId": "8",
+    "units": 1,
+    "workMinutes": 0,
+    "start": "2027-02-22T08:00:00.000Z",
+    "finish": "2027-02-22T17:00:00.000Z"
+   },
+   {
+    "taskId": "26",
+    "resourceId": "2",
+    "units": 1,
+    "workMinutes": 480,
+    "start": "2027-02-22T08:00:00.000Z",
+    "finish": "2027-02-22T17:00:00.000Z"
+   },
+   {
+    "taskId": "27",
+    "resourceId": "1",
+    "units": 1,
+    "workMinutes": 960,
+    "start": "2027-02-22T08:00:00.000Z",
+    "finish": "2027-02-22T17:00:00.000Z"
+   },
+   {
+    "taskId": "28",
+    "resourceId": "1",
+    "units": 1,
+    "workMinutes": 2400,
+    "start": "2027-02-22T08:00:00.000Z",
+    "finish": "2027-02-22T17:00:00.000Z"
+   },
+   {
+    "taskId": "29",
+    "resourceId": "10",
+    "units": 1,
+    "workMinutes": 1440,
+    "start": "2027-02-22T08:00:00.000Z",
+    "finish": "2027-02-22T17:00:00.000Z"
+   },
+   {
+    "taskId": "30",
+    "resourceId": "11",
+    "units": 1,
+    "workMinutes": 0,
+    "start": "2027-02-22T08:00:00.000Z",
+    "finish": "2027-02-22T17:00:00.000Z"
+   },
+   {
+    "taskId": "31",
+    "resourceId": "1",
+    "units": 1,
+    "workMinutes": 0,
+    "start": "2027-02-22T08:00:00.000Z",
+    "finish": "2027-02-22T17:00:00.000Z"
+   },
+   {
+    "taskId": "32",
+    "resourceId": "1",
+    "units": 1,
+    "workMinutes": 1440,
+    "start": "2027-02-22T08:00:00.000Z",
+    "finish": "2027-02-22T17:00:00.000Z"
+   },
+   {
+    "taskId": "33",
+    "resourceId": "2",
+    "units": 1,
+    "workMinutes": 0,
+    "start": "2027-02-22T08:00:00.000Z",
+    "finish": "2027-02-22T17:00:00.000Z"
+   }
   ],
   "risks": [
-    {"kind": "risk", "title": "Permit review runs long", "probability": 3, "impact": 4, "owner": "Office manager", "response": "Submit the moment the layout is approved; ask the city about an over-the-counter review.", "tasks": ["permit"], "impactDays": 15},
-    {"kind": "risk", "title": "Carrier misses the install date", "probability": 3, "impact": 3, "owner": "IT lead", "response": "Order the circuit the day the lease is signed; arrange a mobile backup link for week one.", "tasks": ["carrier"], "impactDays": 10},
-    {"kind": "risk", "title": "Furniture ships late", "probability": 2, "impact": 3, "owner": "Office manager", "response": "Choose in-stock lines for desks and chairs; keep current furniture as a fallback.", "tasks": ["lead"], "impactDays": 10},
-    {"kind": "assumption", "title": "The landlord delivers the space ready for build-out at lease signing", "owner": "Finance lead", "status": "open"}
-  ]
+   {
+    "id": "r1",
+    "kind": "risk",
+    "title": "Permit review runs long",
+    "status": "open",
+    "probability": 3,
+    "impact": 4,
+    "owner": "Office manager",
+    "response": "Submit the moment the layout is approved; ask the city about an over-the-counter review.",
+    "taskIds": [
+     "12"
+    ],
+    "scheduleImpactMinutes": 7200
+   },
+   {
+    "id": "r2",
+    "kind": "risk",
+    "title": "Carrier misses the install date",
+    "status": "open",
+    "probability": 3,
+    "impact": 3,
+    "owner": "IT lead",
+    "response": "Order the circuit the day the lease is signed; arrange a mobile backup link for week one.",
+    "taskIds": [
+     "21"
+    ],
+    "scheduleImpactMinutes": 4800
+   },
+   {
+    "id": "r3",
+    "kind": "risk",
+    "title": "Furniture ships late",
+    "status": "open",
+    "probability": 2,
+    "impact": 3,
+    "owner": "Office manager",
+    "response": "Choose in-stock lines for desks and chairs; keep current furniture as a fallback.",
+    "taskIds": [
+     "14"
+    ],
+    "scheduleImpactMinutes": 4800
+   },
+   {
+    "id": "r4",
+    "kind": "assumption",
+    "title": "The landlord delivers the space ready for build-out at lease signing",
+    "status": "open",
+    "owner": "Finance lead"
+   }
+  ],
+  "milestones": [],
+  "calendars": [
+   {
+    "id": "1",
+    "name": "Standard",
+    "baseCalendarId": null,
+    "weeklyWorkingMinutes": [
+     [],
+     [
+      [
+       480,
+       720
+      ],
+      [
+       780,
+       1020
+      ]
+     ],
+     [
+      [
+       480,
+       720
+      ],
+      [
+       780,
+       1020
+      ]
+     ],
+     [
+      [
+       480,
+       720
+      ],
+      [
+       780,
+       1020
+      ]
+     ],
+     [
+      [
+       480,
+       720
+      ],
+      [
+       780,
+       1020
+      ]
+     ],
+     [
+      [
+       480,
+       720
+      ],
+      [
+       780,
+       1020
+      ]
+     ],
+     []
+    ],
+    "exceptions": [
+     {
+      "start": "2027-05-31T00:00:00.000Z",
+      "finish": "2027-06-01T00:00:00.000Z",
+      "working": false
+     },
+     {
+      "start": "2027-07-05T00:00:00.000Z",
+      "finish": "2027-07-06T00:00:00.000Z",
+      "working": false
+     }
+    ]
+   }
+  ],
+  "baselines": []
+ }
 }

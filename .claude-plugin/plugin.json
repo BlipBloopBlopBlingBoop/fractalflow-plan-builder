@@ -1,7 +1,7 @@
 {
   "name": "fractalflow-plan-builder",
-  "version": "1.1.0",
-  "description": "Plan, check and revise critical-path project schedules with Claude and open them in FractalFlow: build a plan from a description or document, run schedule-quality checks, test what-ifs, and update or revise an existing .ffplan.",
+  "version": "1.2.0",
+  "description": "Plan, check and revise critical-path project schedules with Claude and open them in FractalFlow: build a plan from a description or document, review schedule quality, test what-ifs, and update or revise an existing .ffplan.",
   "author": {
     "name": "Rizkin Labs"
   },
