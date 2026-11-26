@@ -1,0 +1,50 @@
+{
+  "name": "Office Move",
+  "start": "2027-02-22",
+  "calendar": {"workdays": ["Mon", "Tue", "Wed", "Thu", "Fri"], "holidays": ["2027-05-31", "2027-07-05"]},
+  "tasks": [
+    {"key": "commit", "name": "Decide and commit", "level": 1},
+    {"key": "needs", "name": "Confirm headcount and space needs", "level": 2, "days": 5, "owner": "Office manager"},
+    {"key": "tour", "name": "Shortlist and tour spaces", "level": 2, "days": 10, "pred": ["needs"], "owner": "Office manager", "optimistic": 7, "pessimistic": 15},
+    {"key": "terms", "name": "Negotiate lease terms", "level": 2, "days": 10, "pred": ["tour"], "owner": "Finance lead", "optimistic": 5, "pessimistic": 20, "notes": "Estimate. Two rounds of comments assumed."},
+    {"key": "legal", "name": "Landlord and legal review", "level": 2, "days": 14, "elapsed": true, "pred": ["terms"], "owner": "Landlord", "notes": "Calendar days. Landlord quoted two weeks."},
+    {"key": "signed", "name": "Lease signed", "level": 2, "milestone": true, "pred": ["legal"], "owner": "Finance lead"},
+
+    {"key": "design", "name": "Design the space", "level": 1},
+    {"key": "testfit", "name": "Draw test fit and floor plan", "level": 2, "days": 8, "pred": ["signed"], "owner": "Designer"},
+    {"key": "input", "name": "Collect staff input on layout", "level": 2, "days": 5, "pred": ["testfit"], "owner": "Office manager"},
+    {"key": "layout", "name": "Final layout approved", "level": 2, "milestone": true, "pred": ["input"], "owner": "Office manager"},
+
+    {"key": "build", "name": "Build out", "level": 1},
+    {"key": "permit", "name": "Building permit review", "level": 2, "days": 21, "elapsed": true, "pred": ["layout"], "owner": "City", "optimistic": 14, "pessimistic": 45, "notes": "Calendar days. Assumption: confirm the current review time with the city."},
+    {"key": "order", "name": "Order furniture", "level": 2, "days": 2, "pred": ["layout"], "owner": "Office manager"},
+    {"key": "lead", "name": "Furniture lead time", "level": 2, "days": 42, "elapsed": true, "pred": ["order"], "owner": "Furniture vendor", "notes": "Calendar days. Vendor quote: six weeks from order."},
+    {"key": "walls", "name": "Build partitions and power", "level": 2, "days": 15, "pred": ["permit"], "owner": "Contractor", "optimistic": 12, "pessimistic": 25},
+    {"key": "paint", "name": "Paint and lay flooring", "level": 2, "days": 6, "pred": ["walls"], "owner": "Contractor"},
+    {"key": "install", "name": "Install furniture", "level": 2, "days": 4, "pred": ["lead", "paint"], "owner": "Furniture vendor"},
+    {"key": "punch", "name": "Close punch list and get landlord sign-off", "level": 2, "days": 3, "pred": ["install"], "owner": "Contractor"},
+
+    {"key": "tech", "name": "Technology", "level": 1},
+    {"key": "circuit", "name": "Order internet circuit", "level": 2, "days": 1, "pred": ["signed"], "owner": "IT lead"},
+    {"key": "carrier", "name": "Carrier install lead time", "level": 2, "days": 30, "elapsed": true, "pred": ["circuit"], "owner": "Carrier", "optimistic": 21, "pessimistic": 60, "notes": "Calendar days. Carrier standard interval."},
+    {"key": "cable", "name": "Pull cable and fit network closet", "level": 2, "days": 5, "pred": ["walls"], "owner": "IT lead"},
+    {"key": "wifi", "name": "Set up Wi-Fi, printers and meeting rooms", "level": 2, "days": 4, "pred": ["cable", "carrier"], "owner": "IT lead"},
+    {"key": "nettest", "name": "Network tested", "level": 2, "milestone": true, "pred": ["wifi"], "owner": "IT lead"},
+
+    {"key": "move", "name": "Move", "level": 1},
+    {"key": "notice", "name": "Give notice on the current lease", "level": 2, "days": 1, "pred": ["signed"], "owner": "Finance lead", "deadline": "2027-05-28", "notes": "Current lease needs 60 days notice before the end date of 2027-07-30."},
+    {"key": "movers", "name": "Book movers", "level": 2, "days": 2, "pred": ["layout"], "owner": "Office manager"},
+    {"key": "margin", "name": "Schedule contingency", "level": 2, "days": 5, "pred": ["punch", "nettest"], "owner": "Office manager", "notes": "Margin for the build and the carrier. Give it up only by decision."},
+    {"key": "pack", "name": "Pack and label", "level": 2, "days": 3, "pred": ["movers", "margin"], "owner": "All staff", "constraint": "SNET", "constraintDate": "2027-07-14", "notes": "Pack in the last three working days before the move, so people can keep working until then."},
+    {"key": "weekend", "name": "Move over the weekend", "level": 2, "days": 2, "elapsed": true, "pred": ["pack"], "owner": "Movers", "constraint": "SNET", "constraintDate": "2027-07-17", "notes": "Movers are booked for Saturday and Sunday so no working day is lost."},
+    {"key": "day1", "name": "First day in the new office", "level": 2, "milestone": true, "pred": ["weekend"], "owner": "Office manager"},
+    {"key": "clear", "name": "Clear and clean the old office", "level": 2, "days": 3, "pred": ["day1"], "owner": "Office manager"},
+    {"key": "done", "name": "Old office handed back", "level": 2, "milestone": true, "pred": ["clear", "notice"], "owner": "Finance lead", "deadline": "2027-07-30"}
+  ],
+  "risks": [
+    {"kind": "risk", "title": "Permit review runs long", "probability": 3, "impact": 4, "owner": "Office manager", "response": "Submit the moment the layout is approved; ask the city about an over-the-counter review.", "tasks": ["permit"], "impactDays": 15},
+    {"kind": "risk", "title": "Carrier misses the install date", "probability": 3, "impact": 3, "owner": "IT lead", "response": "Order the circuit the day the lease is signed; arrange a mobile backup link for week one.", "tasks": ["carrier"], "impactDays": 10},
+    {"kind": "risk", "title": "Furniture ships late", "probability": 2, "impact": 3, "owner": "Office manager", "response": "Choose in-stock lines for desks and chairs; keep current furniture as a fallback.", "tasks": ["lead"], "impactDays": 10},
+    {"kind": "assumption", "title": "The landlord delivers the space ready for build-out at lease signing", "owner": "Finance lead", "status": "open"}
+  ]
+}
