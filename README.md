@@ -32,6 +32,8 @@ FractalFlow recalculates the plan when it opens the file. If a date there differ
 
 The plugin contains one skill and one Python script, `skills/fractalflow-plan-builder/scripts/ffplan.py`. Claude runs the script to check a plan, to write the `.ffplan` file, and to read a `.ffplan` you provide. The script uses the Python standard library only. It reads the plan or spec file Claude gives it (and, when revising a plan, the original `.ffplan` that spec was made from), writes the output file Claude names, and adds one identifying line to a new spec the first time it is built. It makes no network requests, starts no other programs and collects nothing. The plugin has no hooks, no servers and no connectors.
 
+One more thing Claude may run, and only if you ask it to open the plan while it has access to your Mac: the macOS command `open -a FractalFlow` on the file it just wrote.
+
 ## Requirements
 
 - Python 3.8 or later where Claude runs.
